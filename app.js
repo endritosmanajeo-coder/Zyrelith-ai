@@ -4,7 +4,7 @@ let messages=JSON.parse(localStorage.getItem(CHAT)||"[]");
 function render(){ $("messages").innerHTML=""; for(const m of messages){const d=document.createElement("div");d.className="bubble "+m.role;d.textContent=m.text;$("messages").appendChild(d)} $("messages").scrollTop=$("messages").scrollHeight;}
 function settings(){return JSON.parse(localStorage.getItem(KEY)||"{}")}
 function saveSettings(){localStorage.setItem(KEY,JSON.stringify({apiKey:$("apiKey").value.trim(),model:$("model").value}));$("settings").close()}
-$("settingsBtn").onclick=()=>{const s=settings();$("apiKey").value=s.apiKey||"";$("model").value=s.model||"gemini-2.5-flash-lite";$("settings").showModal()};
+$("settingsBtn").onclick=()=>{const s=settings();$("apiKey").value=s.apiKey||"";$("model").value=s.model||"gemini-3.5-flash-lite";$("settings").showModal()};
 $("saveSettings").onclick=saveSettings;
 document.querySelectorAll(".tab").forEach(b=>b.onclick=()=>{document.querySelectorAll(".tab,.panel").forEach(x=>x.classList.remove("active"));b.classList.add("active");$(b.dataset.tab).classList.add("active")});
 async function send(text){const s=settings();if(!s.apiKey){$("settings").showModal();alert("Add your Gemini API key in Settings first.");return}messages.push({role:"user",text});localStorage.setItem(CHAT,JSON.stringify(messages));render();$("prompt").value="";$("sendBtn").disabled=true;
